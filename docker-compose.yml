@@ -1,0 +1,25 @@
+version: "3"
+services:
+  resume-app:
+    build: .
+    container_name: resumeapp
+    image: resumeapp:latest
+    ports:
+      - 9100:5000
+    depends_on:
+      - mongo
+    environment:
+      - DB_HOST=mongo
+
+  mongo:
+    image: mongo
+    ports:
+      - "27021:27017"
+    volumes:
+      - resumedb:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+
+volumes:
+  resumedb:
